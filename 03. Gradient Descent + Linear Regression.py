@@ -1,5 +1,4 @@
 from sympy import *
-from sympy.plotting import plot3d
 import pandas as pd
 
 
@@ -15,7 +14,6 @@ def main():
     Y_points = points['y'].values
 
     sum_of_squares = sum((k * X_points[i] + b - Y_points[i])**2 for i in range(len(X_points)))
-    plot3d(sum_of_squares) # error space
 
     d_k = diff(sum_of_squares, k)
     d_b = diff(sum_of_squares, b)
@@ -25,10 +23,8 @@ def main():
     grad_b = lambdify([k, b], d_b)
 
     for _ in range(ITERATIONS):
-        k_grad = grad_k(k_value, b_value)
-        b_grad = grad_b(k_value, b_value)
-        k_value -= LEARNING_RATE * k_grad
-        b_value -= LEARNING_RATE * b_grad
+        k_value -= LEARNING_RATE * grad_k(k_value, b_value)
+        b_value -= LEARNING_RATE * grad_b(k_value, b_value)
 
     print(f"y = {k_value:.3f} * x + {b_value:.3f}")
 

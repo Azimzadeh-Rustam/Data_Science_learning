@@ -40,6 +40,7 @@ def f(x):
 
 def df_dx(x):
     return 2 * (x - 3)
+    #return lambdify(diff())
 
 
 if __name__ == '__main__':
